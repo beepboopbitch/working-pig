@@ -3,24 +3,56 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"></script>
       <script type="text/javascript" src="js/scripts.js"></script>
       <link rel="stylesheet" href="css/styles.css">
+      <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
+
   </head>
   <body>
-    <h1>Roll A Dice</h1>
-    <p>Player 1 Score : <span id="player1-score"></span> </p>
-    <p>Player 2 Score : <span id="player2-score"></span> </p>
-    <p>
-      <button type="button" class="roll-button" name="roll-button">Roll A Dice</button>
-      <button type="button" name="holdbtn" class="holdbtn">Hold</button>
-    </p>
+    <div class="container">
 
-    <p>You're Dice Roll:</p>
-    <ul class="results">
+      <div class="header">
+        <h1><img src="imgs/pig.png" alt=""> PIG!</h1>
+      </div>
 
-    </ul>
+      <div class="hiddenPig">
+        <div class="row">
+          <div class="col-md-6">
+            <p>Player 1 Score: <span id="player1-score">0</span> </p>
+          </div>
+          <div class="col-md-6">
+            <p>Player 2 Score: <span id="player2-score">0</span> </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <button type="button" class="roll-button btn btn-success" name="roll-button">Roll</button>
+          </div>
+          <div class="col-md-4">
+            <div class="dice-container">
+              <img id="diceDisplay" src="" alt="">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <button type="button" name="holdbtn" class="holdbtn btn btn-danger " disabled>Hold</button>
+          </div>
+        </div>
+
+        <ul class="results row"></ul>
+      </div>
+
+      <div class="victoryScreen">
+        <p><span id="victor"></span>, you win!!!</p>
+        <button type="button" class="reset" name="button">Reset Game</button>
+      </div>
+
+
+
+    </div>
   </body>
 </html>

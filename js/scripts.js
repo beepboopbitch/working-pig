@@ -9,7 +9,6 @@ function GameManager() {
   this.diceSides = 6;
   this.turnScore = 0;
   this.rolls = [];
-  this.totalScore = 0;
   this.players = [];
 }
 
@@ -23,9 +22,11 @@ GameManager.prototype.roll = function () {
   return randomNumber;
 }
 
-GameManager.prototype.checkVictory = function (playerScore){
-  if(playerScore >= 100){
-    console.log("You Win!!!")
+GameManager.prototype.checkVictory = function (player){
+  if(player.score >= 100){
+    $(".hiddenPig").hide();
+    $(".victoryScreen").show();
+    $("#victor").text(player.name)
   }
 }
 
@@ -45,15 +46,33 @@ GameManager.prototype.resetBoard = function() {
   this.rolls = [];
   this.turnScore = 0;
   $("li").remove();
-  $(".holdbtn").hide();
+  $(".holdbtn").attr("disabled", true);
   this.switchPlayers();
+}
+
+GameManager.prototype.resetUi = function() {
+  $(".hiddenPig").show();
+  $(".victoryScreen").hide();
+  $("li").remove();
+  $(".holdbtn").hide();
+  $("#player1-score").html(0);
+  $("#player2-score").html(0);
+}
+
+GameManager.prototype.resetGame = function() {
+  var newGame = new GameManager();
+  var player1 = new Player("player1", true);
+  var player2 = new Player("player2", false);
+  newGame.addPlayer(player1);
+  newGame.addPlayer(player2);
+  return newGame;
 }
 
 GameManager.prototype.applyScore = function(score){
   for(var i = 0; i < this.players.length; i += 1){
     if(this.players[i].active) {
       this.players[i].score += score
-      this.checkVictory(this.players[i].score);
+      this.checkVictory(this.players[i]);
     }
   }
 }
@@ -65,25 +84,20 @@ GameManager.prototype.getScore =function() {
   return this.turnScore
 }
 
-var game = new GameManager();
-var player1 = new Player("player1", true);
-var player2 = new Player("player2", false);
-game.addPlayer(player1);
-game.addPlayer(player2);
-
 $(function() {
+  var game = new GameManager();
+  game = game.resetGame();
+
 
   $(".roll-button").click(function(){
     var returnRoll = game.roll();
-    var totalsDisplay = ""
       if(returnRoll === 1){
+        $("#diceDisplay").attr("src", "imgs/dice0" + returnRoll + ".png");
         game.resetBoard();
       } else {
-        game.rolls.forEach(function(roll){
-          totalsDisplay += "<li>" + roll + "</li>"
-        })
-        $(".results").html(totalsDisplay);
-        $(".holdbtn").show();
+        $(".results").append("<li><img src='imgs/dice0" + returnRoll + ".png'></img></li>");
+        $("#diceDisplay").attr("src", "imgs/dice0" + returnRoll + ".png");
+        $(".holdbtn").removeAttr("disabled");
       }
   });
 
@@ -91,6 +105,11 @@ $(function() {
     game.hold();
     $("#player1-score").html(game.players[0].score);
     $("#player2-score").html(game.players[1].score);
+  })
+
+  $(".reset").click(function(){
+    game = game.resetGame();
+    game.resetUi();
   })
 
 });

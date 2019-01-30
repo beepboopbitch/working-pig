@@ -1,3 +1,47 @@
-.holdbtn {
+.victoryScreen {
   display: none;
+}
+
+li {
+  list-style-type: none;
+}
+li img {
+  margin: 10px;
+}
+
+.results {
+  border: 2px solid black;
+  border-radius: 20px;
+  min-height: 150px;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+h1 {
+  font-family: 'Baloo Thambi', cursive;
+  font-size: 200px;
+  margin-top: 50px;
+}
+
+h1 img {
+  background-color:transparent;
+  height: 300px;
+
+}
+
+body {
+  text-align: center;
+  background-color: pink;
+}
+
+.dice-container {
+  min-height: 90px;
+}
+
+button.btn{
+  border-radius : 50%;
+  box-shadow: 0 3px 0 0 #007299;
+  height: 80px;
+  width: 80px;
 }
