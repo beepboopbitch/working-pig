@@ -49,3 +49,6 @@ button.btn{
 #player1-score, #player2-score {
   font-size: 100px;
 }
+.row p {
+  font-size: 50px;
+}
