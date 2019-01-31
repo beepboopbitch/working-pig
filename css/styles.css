@@ -45,3 +45,7 @@ button.btn{
   height: 80px;
   width: 80px;
 }
+
+#player1-score, #player2-score {
+  font-size: 100px;
+}

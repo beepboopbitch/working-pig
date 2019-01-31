@@ -54,7 +54,7 @@ GameManager.prototype.resetUi = function() {
   $(".hiddenPig").show();
   $(".victoryScreen").hide();
   $("li").remove();
-  $(".holdbtn").hide();
+  $(".holdbtn").attr("disabled", true);
   $("#player1-score").html(0);
   $("#player2-score").html(0);
 }
