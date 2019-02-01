@@ -14,19 +14,30 @@
   </head>
   <body>
     <div class="container">
+      <p>Enter Player's Name:</p>
+      <div class="player-container">
+        <input type="text" class="player" id="p0" value="">
+        <input type="text" class="player" id="p1" value="">
+      </div>
 
+      <button type="button" class="add-player"name="add-player">Add a Player</button>
+      <button type="button" name="button" class="nameInput">Start Game:</button>
+    </div>
+    <div class="container game-container">
       <div class="header">
         <h1><img src="imgs/pig.png" alt=""> PIG!</h1>
       </div>
 
       <div class="hiddenPig">
-        <div class="row">
-          <div class="col-md-6">
-            <p>Player 1 Score: <span id="player1-score">0</span> </p>
+        <div class="row scoreContainer">
+          <div class="col-md-3">
+            <p><span class="player0Name"></span> Score: <span id="player0-score">0</span> </p>
           </div>
-          <div class="col-md-6">
-            <p>Player 2 Score: <span id="player2-score">0</span> </p>
+          <div class="col-md-3">
+            <p><span class="player1Name"></span> Score: <span id="player1-score">0</span> </p>
           </div>
+        </div>
+
         </div>
 
         <div class="row">

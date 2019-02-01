@@ -33,13 +33,21 @@ GameManager.prototype.checkVictory = function (player){
 GameManager.prototype.hold = function () {
   this.applyScore(this.getScore());;
   this.resetBoard();
-
 }
 
 GameManager.prototype.switchPlayers = function () {
-  this.players.forEach(function(player){
-    player.active = !player.active;
-  });
+  for(var i = 0; i < this.players.length; i++) {
+    if(this.players[i].active === true) {
+
+      this.players[i].active = false;
+      if(this.players[i + 1]) {
+        this.players[i + 1].active = true;
+        return;
+      } else {
+        this.players[0].active = true;
+      }
+    }
+  }
 }
 
 GameManager.prototype.resetBoard = function() {
@@ -61,10 +69,18 @@ GameManager.prototype.resetUi = function() {
 
 GameManager.prototype.resetGame = function() {
   var newGame = new GameManager();
-  var player1 = new Player("player1", true);
-  var player2 = new Player("player2", false);
+  var player0 = new Player($("#p0").val(), true);
+  $(".player0").text(player0.name);
+  var player1 = new Player($("#p1").val(), false);
+  $(".player1").text(player1.name);
+  newGame.addPlayer(player0);
   newGame.addPlayer(player1);
-  newGame.addPlayer(player2);
+  for (var i = 2; i < $(".player").length; i++) {
+    var extraPlayer = new Player($("#p" + i).val(), false);
+    $(".scoreContainer").append("<div class='col-md-3'><p><span class='playerScore" + i + "Name'></span>" + extraPlayer.name + " Score: <span id='player" + i + "-score'>0</span> </p></div>")
+    newGame.addPlayer(extraPlayer);
+  }
+
   return newGame;
 }
 
@@ -84,10 +100,19 @@ GameManager.prototype.getScore =function() {
   return this.turnScore
 }
 
+GameManager.prototype.showScores = function () {
+  for (var i = 0; i < this.players.length; i++) {
+    $("#player" + i + "-score").html(this.players[i].score)
+  }
+}
+
 $(function() {
   var game = new GameManager();
-  game = game.resetGame();
 
+  $(".add-player").click(function(){
+    var playerCount = $(".player").length;
+    $(".player-container").append("<input class='player' id='p" + playerCount + "'></input>");
+  });
 
   $(".roll-button").click(function(){
     var returnRoll = game.roll();
@@ -103,13 +128,16 @@ $(function() {
 
   $(".holdbtn").click(function(){
     game.hold();
-    $("#player1-score").html(game.players[0].score);
-    $("#player2-score").html(game.players[1].score);
+    game.showScores();
+
   })
 
   $(".reset").click(function(){
     game = game.resetGame();
     game.resetUi();
   })
-
+  $(".nameInput").click(function(){
+    $(".game-container").slideDown();
+    game = game.resetGame();
+  });
 });
